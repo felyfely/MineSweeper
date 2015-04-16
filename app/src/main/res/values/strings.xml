@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">MineSweeper</string>
+    <string name="start">Start</string>
+    <string name="welcome"><b>WELCOME TO MINESWEEPER APP</b></string>
+
+
+    <string name="cheat">Cheat</string>
+
+    <string name="cancel">Cancel</string>
+    <string name="action_help">Help</string>
+    <string name="help_message">Click mineField to sweep mines.\n Long click to Flag mines.\n Click on Flagged Mine Cell to add question mark.\n Long click to cancel.\n Try to finish it before time runs out.\n\n Good Luck!</string>
+</resources>
