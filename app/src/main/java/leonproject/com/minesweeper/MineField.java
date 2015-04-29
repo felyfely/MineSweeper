@@ -9,14 +9,16 @@ import java.util.Random;
  */
 public class MineField {
 
-    private int size = 8;
+    private int size;
     private Context context;
-    private int mineCount = 10;
+    private int mineCount;
     private int safeMineCellCount = 0;
-    private final MineCell[][] mineField;
+    private int flagNum = 0;
+    private MineCell[][] mineField;
+    private Random rand = new Random();
 
 
-    public MineField( Context context,int size, int mineCount) {
+    public MineField(Context context, int size, int mineCount) {
         this.size = size;
         this.context = context;
         this.mineCount = mineCount;
@@ -26,18 +28,10 @@ public class MineField {
 
     }
 
-    public MineField(Context context) {
-
-        this.context = context;
-        mineField = new MineCell[size][size];
-        initMineCell();
-
-    }
-
 
     public MineCell getMineBlocks(int i, int j) {
 
-        if (i >= 0 && i <= mineField.length && j >= 0 && j <= mineField[0].length) {
+        if (i >= 0 && i < mineField.length && j >= 0 && j < mineField[0].length) {
             return mineField[i][j];
         } else {
             return null;
@@ -66,7 +60,7 @@ public class MineField {
         }
     }
 
-// does a 3x3 subMatrix count of adjacent mines
+    // does a 3x3 subMatrix count of adjacent mines
     private int surroundingMineCounter(int i, int j) {
         int num;
 
@@ -88,7 +82,7 @@ public class MineField {
         int num = 0;
 
         if (i >= 0 && i < mineField.length && j >= 0 && j < mineField[0].length) {
-            num = mineField[i][j].getIsMined() ? 1 : 0;
+            num = mineField[i][j].isMined() ? 1 : 0;
 
         }
         return num;
@@ -101,10 +95,10 @@ public class MineField {
         int placedMines = 0;
 
         while (placedMines < mineCount) {
-            int x = (new Random().nextInt(mineField.length));
-            int y = (new Random().nextInt(mineField[0].length));
+            int x = (rand.nextInt(mineField.length));
+            int y = (rand.nextInt(mineField[0].length));
 
-            if (!mineField[x][y].getIsMined()) {
+            if (!mineField[x][y].isMined()) {
                 mineField[x][y].setIsMined(true);
                 placedMines++;
             }
@@ -116,9 +110,11 @@ public class MineField {
     public void revealAllMines() {
         for (int i = 0; i < mineField.length; i++) {
             for (int j = 0; j < mineField[0].length; j++) {
-                if (mineField[i][j].getIsMined()) {
+                if (mineField[i][j].isMined()) {
                     mineField[i][j].setBackgroundResource(R.drawable.mine);
 
+                } else if (mineField[i][j].isFlagged() && !mineField[i][j].isQuestioned()) {
+                    mineField[i][j].setBackgroundResource(R.drawable.mine_x);
                 }
             }
         }
@@ -129,30 +125,65 @@ public class MineField {
     public void surroundCheck(int i, int j) {
         if (i >= 0 && i < mineField.length && j >= 0 && j < mineField[0].length) {
 
-            if (mineField[i][j].isCovered()) {
+            if (mineField[i][j].isCovered()&&!mineField[i][j].isFlagged()) {
+
+
+
 
                 mineField[i][j].setCovered(false);
 
-                if (!mineField[i][j].getIsMined()) {
+
+                if (!mineField[i][j].isMined()) {
                     safeMineCellCount++;
 //                    Log.i("MineField","i="+i+"j="+j+"SurroundMimeNum="+mineField[i][j].getSurroundingMineNum());
                     if (mineField[i][j].getSurroundingMineNum() == 0) {
 //                        Log.i("MineField","i="+i+"j="+j);
-                        surroundCheck(i - 1, j - 1);
-                        surroundCheck(i - 1, j);
-                        surroundCheck(i - 1, j + 1);
-                        surroundCheck(i, j - 1);
-                        surroundCheck(i, j + 1);
-                        surroundCheck(i + 1, j - 1);
-                        surroundCheck(i + 1, j);
-                        surroundCheck(i + 1, j + 1);
+                        surroundCheckCube(i,j);
 
 
                     }
                 }
+
+
+
+
+
             }
+
+
         }
 
+    }
+
+    public void surroundCheckCube(int i, int j){
+        surroundCheck(i - 1, j - 1);
+        surroundCheck(i - 1, j);
+        surroundCheck(i - 1, j + 1);
+        surroundCheck(i, j - 1);
+        surroundCheck(i, j + 1);
+        surroundCheck(i + 1, j - 1);
+        surroundCheck(i + 1, j);
+        surroundCheck(i + 1, j + 1);
+    }
+
+    public int checkSurroundingFlagNum(int i, int j) {
+        int surroundingFlagNum =
+                checkSurroundingFlagNumHelper(i - 1, j - 1) +
+                        checkSurroundingFlagNumHelper(i - 1, j) +
+                        checkSurroundingFlagNumHelper(i - 1, j + 1) +
+                        checkSurroundingFlagNumHelper(i, j - 1) +
+                        checkSurroundingFlagNumHelper(i, j + 1) +
+                        checkSurroundingFlagNumHelper(i + 1, j - 1) +
+                        checkSurroundingFlagNumHelper(i + 1, j) +
+                        checkSurroundingFlagNumHelper(i + 1, j + 1);
+        return surroundingFlagNum;
+    }
+
+    private int checkSurroundingFlagNumHelper(int i, int j) {
+        if (i >= 0 && i < mineField.length && j >= 0 && j < mineField[0].length) {
+            return mineField[i][j].isFlagged() ? 1 : 0;
+        }
+        return 0;
     }
 
     //reset or set detected mines no.
@@ -165,5 +196,11 @@ public class MineField {
         return safeMineCellCount;
     }
 
+    public int getFlagNum() {
+        return flagNum;
+    }
 
+    public void setFlagNum(int flagNum) {
+        this.flagNum = flagNum;
+    }
 }

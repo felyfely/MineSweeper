@@ -17,7 +17,8 @@ import android.widget.TextView;
 public class MainActivity extends ActionBarActivity {
 
     TextView welcomeTextView;
-    Button newGameButton;
+    Button newGameButtonEasy,newGameButtonNormal,newGameButtonHard;
+    int size,mineNum;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -27,12 +28,30 @@ public class MainActivity extends ActionBarActivity {
 //add LED style fonts here
         Typeface myTypeface = Typeface.createFromAsset(this.getAssets(),
                 "digital.ttf");
-        newGameButton = (Button) findViewById(R.id.start_player);
-        newGameButton.setTypeface(myTypeface);
-        newGameButton.setOnClickListener(
+        newGameButtonEasy = (Button) findViewById(R.id.start_player);
+        newGameButtonEasy.setTypeface(myTypeface);
+        newGameButtonEasy.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View v) {
-                        startGame();
+                        startGame(8, 10, 60);
+                    }
+                });
+
+        newGameButtonNormal = (Button) findViewById(R.id.start_player_intermediate);
+        newGameButtonNormal.setTypeface(myTypeface);
+        newGameButtonNormal.setOnClickListener(
+                new View.OnClickListener() {
+                    public void onClick(View v) {
+                        startGame(16, 40, 240);
+                    }
+                });
+
+        newGameButtonHard = (Button) findViewById(R.id.start_player_expert);
+        newGameButtonHard.setTypeface(myTypeface);
+        newGameButtonHard.setOnClickListener(
+                new View.OnClickListener() {
+                    public void onClick(View v) {
+                        startGame(24, 99, 1000);
                     }
                 });
 
@@ -41,8 +60,13 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
-    private void startGame() {
+    private void startGame(int size, int mineNum, int time) {
         Intent i = new Intent(this, GameActivity.class);
+        i.putExtra("size",size);
+        i.putExtra("mineNum",mineNum);
+        i.putExtra("time",time);
+
+
         startActivity(i);
     }
 

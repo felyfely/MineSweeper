@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MineSweeper</string>
+    <string name="app_name">MineSweeper V</string>
     <string name="start">Start</string>
     <string name="welcome"><b>WELCOME TO MINESWEEPER APP</b></string>
 
@@ -8,5 +8,6 @@
 
     <string name="cancel">Cancel</string>
     <string name="action_help">Help</string>
-    <string name="help_message">Click mineField to sweep mines.\n Long click to Flag mines.\n Click on Flagged Mine Cell to add question mark.\n Long click to cancel.\n Try to finish it before time runs out.\n\n Good Luck!</string>
+    <string name="help_message">Click mineField to sweep mines.\n\nLong click on or hold the flag button then click on mines to Flag mines.\n\nClick on Flagged Mine Cell to add question mark.\n\nLong click on or hold flag button then click on mines to cancel flag.\n\nClick on the uncovered tiles to reveal adjacent tiles if flagged right(question considered as flags)\n\nUse the Cursor to help you through small buttons.\n\n Try to finish it before time runs out.\n\n Good Luck!</string>
+    <string name="cursor">cursor</string>
 </resources>

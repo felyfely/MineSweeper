@@ -11,24 +11,55 @@
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical">
 
-    <TextView
-        android:id="@+id/text_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="@string/welcome"
-        android:layout_above="@+id/start_player"
-        android:textSize="18sp"/>
+        <TextView
+            android:id="@+id/text_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/welcome"
+            android:layout_above="@+id/start_button_layout"
+            android:textSize="18sp"/>
 
-    <Button
-        android:id="@+id/start_player"
-        android:text="@string/start"
-        android:layout_width="match_parent"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:textSize="20sp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/start_button_layout"
+            android:layout_centerVertical="true"
+            >
+
+            <Button
+                android:id="@+id/start_player"
+                android:text="Easy"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textSize="20sp"/>
+
+            <Button
+                android:id="@+id/start_player_intermediate"
+                android:text="Intermediate"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textSize="20sp"/>
+
+            <Button
+                android:id="@+id/start_player_expert"
+                android:text="Expert"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textSize="20sp"/>
+
+        </LinearLayout>
+
     </RelativeLayout>
 
 </LinearLayout>

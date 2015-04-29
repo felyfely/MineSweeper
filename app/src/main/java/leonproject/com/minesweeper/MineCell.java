@@ -3,29 +3,34 @@ package leonproject.com.minesweeper;
 import android.content.Context;
 import android.widget.ImageButton;
 
+
 /**
  * Created by fudan on 4/14/15.
  */
 public class MineCell extends ImageButton {
-    private int surroundingMineNum = 0;
+    private int surroundingMineNum = 0,dimension;
     private boolean isCovered = true;
     private boolean isMined = false;
     private boolean isFlagged = false;
     private boolean isQuestioned = false;
+    private OnGameOverListener onGameOverListener;
 
 
     public MineCell(Context context) {
         super(context);
 
 
+
         this.setBackgroundResource(R.drawable.tile);
+
     }
+
 
     public void setIsMined(boolean isMined) {
         this.isMined = isMined;
     }
 
-    public boolean getIsMined() {
+    public boolean isMined() {
         return isMined;
     }
 
@@ -42,6 +47,10 @@ public class MineCell extends ImageButton {
                         "drawable", getContext().getPackageName()));
             }
 
+            else{
+                onGameOverListener.onGameOver();
+            }
+
 
         }
 
@@ -56,8 +65,7 @@ public class MineCell extends ImageButton {
         this.isQuestioned = isQuestioned;
         if (isQuestioned) {
             this.setBackgroundResource(R.drawable.question);
-        }
-        else{
+        } else {
             this.setBackgroundResource(R.drawable.flag);
         }
     }
@@ -81,9 +89,11 @@ public class MineCell extends ImageButton {
         if (!isFlagged) {
             this.isFlagged = true;
             this.setBackgroundResource(R.drawable.flag);
+
         } else {
             this.isFlagged = false;
             this.setBackgroundResource(R.drawable.tile);
+
         }
     }
 
@@ -91,6 +101,9 @@ public class MineCell extends ImageButton {
         return isFlagged;
     }
 
+    public void setDimension(int dimension) {
+        this.dimension = dimension;
+    }
 
     //make sure button is square. this case applies to portrait mode
     @Override
@@ -98,9 +111,16 @@ public class MineCell extends ImageButton {
 
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-        int width = getMeasuredWidth();
-        setMeasuredDimension(width, width);
+
+        setMeasuredDimension(dimension,dimension);
     }
 
+     public interface OnGameOverListener{
 
+         void onGameOver();
+    }
+
+    public void setOnGameOverListener(OnGameOverListener onGameOverListener) {
+        this.onGameOverListener = onGameOverListener;
+    }
 }

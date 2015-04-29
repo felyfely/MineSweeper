@@ -2,10 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_cheat"
-        android:title="@string/cheat"
-        app:showAsAction="never"
+        android:id="@+id/action_cursor"
+        android:title="@string/cursor"
+        app:showAsAction="always"
+        android:icon="@drawable/cursor"
         android:orderInCategory="1" />
+
+    <!--<item-->
+        <!--android:id="@+id/action_cheat"-->
+        <!--android:title="@string/cheat"-->
+        <!--app:showAsAction="never"-->
+        <!--android:orderInCategory="1" />-->
     <item
         android:id="@+id/action_help"
         android:title="@string/action_help"

@@ -2,16 +2,26 @@
 
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:gravity="center_horizontal"
-    >
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:splitMotionEvents="true"
+              android:gravity="top">
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/longClickProgressBar"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0"/>
+
 
     <RelativeLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_weight="0"
         >
 
         <TextView
@@ -29,13 +39,14 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_horizontal">
+            android:gravity="center_horizontal"
+            android:id="@+id/score_board">
 
-    <ImageButton
-        android:id="@+id/smile_button"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        />
+            <ImageButton
+                android:id="@+id/smile_button"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                />
         </LinearLayout>
 
         <TextView
@@ -51,14 +62,171 @@
 
     </RelativeLayout>
 
-    <TableLayout
-        android:id="@+id/game_view"
+
+    <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="0"
+        >
+
+        <TableLayout
+            android:id="@+id/game_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_centerHorizontal="true"
+            android:splitMotionEvents="false"
+            >
+
+        </TableLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/mask"
+            android:background="#32ff0000"
+            android:layout_alignBottom="@+id/game_view"
+            android:visibility="gone">
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button_layout"
+            android:visibility="gone"
+            android:gravity="bottom"
+            android:splitMotionEvents="true">
+
+            <RelativeLayout
+                android:layout_width="172dp"
+                android:layout_height="172dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:padding="10dp"
+                >
+
+
+
+
+                <Button
+                    android:layout_width="57dp"
+                    android:layout_height="57dp"
+                    android:id="@+id/up_button"
+                    android:layout_alignParentBottom="false"
+                    android:layout_alignParentLeft="false"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:alpha="0.5"
+                    android:text=""
+                    android:textSize="30dp"
+                    android:textAlignment="center"/>
+
+                <Button
+                    android:layout_width="57dp"
+                    android:layout_height="57dp"
+                    android:id="@+id/down_button"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="false"
+                    android:layout_centerHorizontal="true"
+                    android:alpha="0.5"
+                    android:text=""
+                    android:textSize="30dp"
+                    android:textAlignment="center"/>
+
+                <Button
+                    android:layout_width="57dp"
+                    android:layout_height="57dp"
+                    android:id="@+id/left_button"
+                    android:layout_alignParentBottom="false"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:alpha="0.5"
+                    android:text=""
+                    android:textSize="30dp"
+                    android:textAlignment="center"/>
+
+                <Button
+                    android:layout_width="57dp"
+                    android:layout_height="57dp"
+                    android:id="@+id/right_button"
+                    android:layout_alignParentBottom="false"
+                    android:layout_alignParentLeft="false"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:alpha="0.5"
+                    android:text=""
+                    android:textSize="30dp"
+                    android:textAlignment="center"/>
+
+                <Button
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
+                    android:background="@android:color/transparent"/>
+                \/>
+
+
+
+                    <ImageButton
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/dpad_layout"
+                       android:background="@android:color/transparent"
+                        android:elevation="1dp"
+                        />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="30dp">
+
+                <Button
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:text=""
+                    android:id="@+id/click_button"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:textAlignment="center"
+                    android:textSize="40dp"
+                    android:alpha="0.5"
+
+                    android:visibility="visible"/>
+
+                <Button
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:text=""
+                    android:id="@+id/flag_button"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:textAlignment="center"
+                    android:textSize="40dp"
+                    android:alpha="0.5"
+
+                    android:visibility="visible"
+                    android:layout_marginRight="80dp"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <Button
         android:layout_weight="1"
-        android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text=""
+        android:id="@+id/flag_button_2"
+        android:textAlignment="center"
+        android:textSize="40dp"
+        android:alpha="0.5"
 
-    </TableLayout>
-
-
+        android:visibility="visible"
+        />
 
 </LinearLayout>
